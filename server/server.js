@@ -13,7 +13,7 @@ const errorMiddleware = require("./middleWare/errorMiddleware");
 
 const corsOptions = {
   origin: [
-    "https://mernfrontend-gn3f.onrender.com",
+    "https://frontend-gmld.onrender.com",
     "http://localhost:5173",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
