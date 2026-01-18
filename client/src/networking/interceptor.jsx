@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 const Axios = axios.create({
-	baseURL:  https://mernbackend-3zeu.onrender.com/,
+	baseURL:  import.meta.env.VITE_BASE_URL,
 	withCredentials: true
 });
 
