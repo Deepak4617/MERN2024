@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+
 const app = express();
 
 const authRoute = require("./router/authRouter");
@@ -16,16 +17,14 @@ const corsOptions = {
     "https://frontend-gmld.onrender.com",
     "http://localhost:5173",
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-
-// ✅ VERY IMPORTANT — allow preflight
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use("/api/auth", authRoute);
@@ -33,13 +32,13 @@ app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
 app.use("/api/admin", adminRoute);
 
-// error middleware (must be last)
+// error handler
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;
 
 connectDb().then(() => {
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server is running on ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
   });
 });
