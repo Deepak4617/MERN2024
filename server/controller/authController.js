@@ -35,19 +35,16 @@ const register = async (req, res, next) => {
       return res.status(400).json({ msg: "Email already exists" });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     const userCreated = await User.create({
       username,
-      email,
+      email: email.toLowerCase(),
       phone,
-      password: hashedPassword,
+      password, // 👈 PLAIN password
     });
 
     res.status(201).json({
       msg: "Registration successful",
-      token: await userCreated.generateToken(),
+      token: userCreated.generateToken(),
       userId: userCreated._id.toString(),
     });
 
